@@ -10,7 +10,7 @@ const session = require('express-session');
 const flash = require('express-flash');
 const MongoDbStore = require('connect-mongo')(session); // Import connect-mongo and pass session to it
 
-const url = 'mongodb+srv://bt21cse136:PYas2vvqdTRpdIQm@cluster2.vtoz8rd.mongodb.net/pizza?retryWrites=true&w=majority&appName=Cluster2';
+
 mongoose.connect(url);
 const connection = mongoose.connection;
 
