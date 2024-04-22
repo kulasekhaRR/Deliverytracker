@@ -38,6 +38,11 @@ app.use(session({
 app.use(flash());
 
 app.use(express.static('public'));
+app.use(express.json())
+app.use((req,res,next)=>{
+    res.locals.session=req.session
+    next()
+})
 app.use(expressLayout);
 app.set('views', path.join(__dirname, '/resources/views'));
 app.set('view engine', 'ejs');

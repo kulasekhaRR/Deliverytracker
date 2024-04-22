@@ -8,6 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/app.css">
     <script src="./js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/noty@3/lib/noty.css">
+    <script src="https://cdn.jsdelivr.net/npm/noty@3/lib/noty.min.js"></script>
 </head>
 <body>
     <nav class="container mx-auto flex items-center justify-between py-4">
@@ -20,7 +23,9 @@
                 <li class="ml-6"><a href="#">Offers</a></li>
                 <li class="ml-6"><a href="/register">Register</a></li>
                 <li class="ml-6"><a href="/login">Login</a></li>
-                <li class="ml-6"><a href="/cart"  class="inline-block px-4 py-2 rounded-full"><img src="/img/cart.png" alt="cart"></a></li>
+                <li class="ml-6"><a href="/cart"  class="inline-block px-4 py-2 rounded-full flex items-center">
+                    <span id="cartCounter" class="text-white font-bold pr-2"><%= session.cart? session.cart.totalQty:'' %></span>
+                    <img src="/img/cart.png" alt="cart"></a></li>
             </ul>
         </div>
     </nav>
@@ -33,10 +38,29 @@
     // JavaScript code
     let addToCart = document.querySelectorAll('.add-to-cart');
     //console.log('hhh');
+    let cartCounter=document.querySelector('#cartCounter')
+    function updateCart(pizza){
+        axios.post('/update-cart',pizza).then(res=>{
+            cartCounter.innerHTML=res.data.totalQty
+            new Noty({
+                type:'success',
+                timeout:1000,
+                text: "Item added to cart",
+                progressBar:false
+            }).show();
+        }).catch(err=>{
+            new Noty({
+                type:'error',
+                timeout:1000,
+                text: "Something went Wrong",
+                progressBar:false
+            }).show();
+        })
+    }
     addToCart.forEach((btn) => {
         btn.addEventListener('click', (e) => {
-            let pizza=btn.dataset.pizza;
-            console.log(pizza)
+            let pizza=JSON.parse(btn.dataset.pizza);
+            updateCart(pizza)
         });
     });
 </script>

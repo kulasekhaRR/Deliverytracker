@@ -7,7 +7,14 @@
   \*****************************/
 /***/ (() => {
 
-//console.log('kula');
+var addToCart = document.querySelectorAll('.add-to-cart');
+console.log('hhh');
+addToCart.forEach(function (btn) {
+  btn.addEventListener('click', function (e) {
+    console.log('jj');
+    console.log(e);
+  });
+});
 
 /***/ }),
 
