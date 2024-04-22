@@ -7,6 +7,7 @@
     <!-- Import Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/app.css">
+    <script src="./js/app.js"></script>
 </head>
 <body>
     <nav class="container mx-auto flex items-center justify-between py-4">
@@ -25,7 +26,18 @@
     </nav>
     <%- body %>
     <footer></footer>
-    <script src="/js/app.js"></script>
+ 
     <!-- Your HTML content here -->
 </body>
+<script>
+    // JavaScript code
+    let addToCart = document.querySelectorAll('.add-to-cart');
+    //console.log('hhh');
+    addToCart.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            let pizza=btn.dataset.pizza;
+            console.log(pizza)
+        });
+    });
+</script>
 </html>
